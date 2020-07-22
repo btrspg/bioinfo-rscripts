@@ -1,0 +1,45 @@
+name: Build LaTeX document
+
+on:
+  push:
+    paths:
+      - 'manuscripts/**'
+    branches:
+      - master
+    tags:
+      - v*
+  pull_request:
+    branches:
+      - master
+    tags:
+      - v*
+  release:
+    types: [published,prereleased]
+
+
+jobs:
+
+  pdf-build:
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v1
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@master
+        with:
+          working_directory: manuscripts/
+          root_file: ./main.tex
+      - name: Send mail
+        uses: dawidd6/action-send-mail@v2
+        with:
+          server_address: smtp.mxhichina.com
+          server_port: 465
+          username: ${{secrets.email}}
+          password: ${{secrets.emailpasswd}}
+          subject: ${{github.repository}} manuscript update
+          body: file://README.md
+          to: yuelong.chen.btr@gmail.com
+          from: Logan
+          content_type: text/html
+          attachments: manuscripts/main.pdf
+          
