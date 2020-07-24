@@ -1,2 +1,4 @@
-# Project: project name
+# R scripts for bioinformatics analysis
+
+
 

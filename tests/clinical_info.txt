@@ -1,0 +1,12 @@
+sample	bam	condition	batch	others
+AG19080101	/path/to/AG19080101.hisat2.bam	Case	batch1	blood
+AG19080102	/path/to/AG19080102.hisat2.bam	Case	batch1	blood
+AG19080103	/path/to/AG19080103.hisat2.bam	Case	batch1	cardi
+AG19080104	/path/to/AG19080104.hisat2.bam	Case	batch1	cardi
+AG19080105	/path/to/AG19080105.hisat2.bam	Case	batch1	cardi
+AG19080106	/path/to/AG19080106.hisat2.bam	Case	batch1	cardi
+D20170109	/path/to/D20170109.final.bam	Control	batch2	blood
+D20170117	/path/to/D20170117.final.bam	Control	batch2	blood
+D20170617	/path/to/D20170617.final.bam	Control	batch2	blood
+s1846233	/path/to/s1846233.final.bam	Control	batch3	blood
+s1891304	/path/to/s1891304.final.bam	Control	batch3	cardi
