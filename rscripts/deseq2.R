@@ -16,9 +16,9 @@ prefix <- args[4]
 
 depth.filter <- 10
 qvalue.filter <- 0.1
-pvalue.filter <- 0.1
-ct <- read.table(count_table,sep="\t",header=TRUE,row.names=1)
-ci <- read.table(clinical_info,sep="\t",header=TRUE,row.names=1)
+pvalue.filter <- 0.05
+ct <- read.table(count_table,sep="\t",header=TRUE,row.names=1,check.names=F)
+ci <- read.table(clinical_info,sep="\t",header=TRUE,row.names=1,check.names=F)
 dds <- DESeqDataSetFromMatrix(countData = ct,
                               colData = ci,
                               design = ~ batch + condition)
@@ -27,11 +27,10 @@ dds <- dds[keep,]
 dds$condition <- relevel(dds$condition, ref = control)
 dds <- DESeq(dds)
 res <- results(dds)
-cat(summary(res))
-dir.create(dirname(prefix))
+
 resOrdered <- res[order(res$pvalue),]
-write.csv(as.data.frame(resOrdered), file="{prefix}_ordered.csv")
+write.csv(as.data.frame(resOrdered), file=paste(prefix,"_ordered.csv",sep=''),quote = FALSE)
 resSig_q <- subset(resOrdered, padj < qvalue.filter)
 resSig_p <- subset(resOrdered, pvalue < pvalue.filter)
 rld <- rlog(dds, blind=FALSE)
-write.csv(assay(rld),file="{prefix}_rld.csv")
+write.csv(assay(rld),file=paste(prefix,"_rld.csv",sep=''),quote = FALSE)
