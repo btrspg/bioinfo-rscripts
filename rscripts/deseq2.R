@@ -18,10 +18,10 @@ depth.filter <- 10
 qvalue.filter <- 0.1
 pvalue.filter <- 0.05
 ct <- read.table(count_table,sep="\t",header=TRUE,row.names=1,check.names=F)
-ci <- read.table(clinical_info,sep="\t",header=TRUE,row.names=1,check.names=F)
+ci <- read.table(clinical_info,sep=",",header=TRUE,row.names=1,check.names=F)
 dds <- DESeqDataSetFromMatrix(countData = ct,
                               colData = ci,
-                              design = ~ batch + condition)
+                              design = ~condition)
 keep <- rowSums(counts(dds)) >= depth.filter
 dds <- dds[keep,]
 dds$condition <- relevel(dds$condition, ref = control)
